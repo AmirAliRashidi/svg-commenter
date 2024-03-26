@@ -1,0 +1,33 @@
+.main-container {
+  width: calc(100% - 2rem);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 2rem;
+
+  .first-section {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+  }
+
+  .main-section {
+    display: flex;
+    flex-direction: column;
+    width: 66%;
+
+    .image-label   {
+      border: 3px dashed #5f5f5f;
+    }
+  }
+
+  .card-container {
+    margin-bottom: 15px;
+
+    .card-header {
+      background-color: #f7f7f7;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+    }
+  }
+}
