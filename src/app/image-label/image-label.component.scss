@@ -1,5 +1,5 @@
 .main-container {
-  width: calc(100% - 2rem);
+  width: calc(100% - 4rem);
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -15,10 +15,6 @@
     display: flex;
     flex-direction: column;
     width: 66%;
-
-    .image-label   {
-      border: 3px dashed #5f5f5f;
-    }
   }
 
   .card-container {
@@ -29,5 +25,34 @@
       margin-bottom: 10px;
       padding-bottom: 10px;
     }
+
+    .setting-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bg-color-container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      .color-field {
+        width: 143px;
+        margin-left: 10px;
+        margin-bottom: -10px;
+      }
+
+      .bg-colors {
+        width: 20px;
+        height: 20px;
+        border: 3px solid #e2e2e2;
+      }
+    }
   }
+}
+
+.button-confirmation {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }

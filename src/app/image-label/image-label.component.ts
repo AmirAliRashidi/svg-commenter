@@ -1,5 +1,12 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { fabric } from 'fabric';
+import {
+  Component,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
+import { SvgEditorComponent } from '../svg-editor/svg-editor.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Color } from '@angular-material-components/color-picker';
 
 @Component({
   selector: 'app-image-label',
@@ -7,20 +14,34 @@ import { fabric } from 'fabric';
   styleUrls: ['./image-label.component.scss'],
 })
 export class ImageLabelComponent implements OnInit {
-  canvasWidth: number = 500;
-  canvasHeight: number = 500;
-  @ViewChild('htmlCanvas') htmlCanvas!: ElementRef;
-  private canvas!: fabric.Canvas;
-
-  constructor() {
-
-  }
+  @ViewChild('canvas', { static: false }) canvas!: SvgEditorComponent;
+  @ViewChild('confirmationDialogTemplate')
+  confirmationDialogTemplate!: TemplateRef<any>;
+  newColor: any;
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {}
 
   changeSize() {
-    console.log('alfkhadsjkfhsk')
-    this.canvas.setWidth(this.canvasWidth);
-    this.canvas.setHeight(this.canvasHeight);
+    this.canvas.changeSize();
+  }
+
+  public addText() {
+    this.canvas.addText();
+  }
+
+  clearingPage() {
+    const dialogRef = this.dialog.open(this.confirmationDialogTemplate, {
+      width: '300px',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.canvas.clear();
+      }
+    });
+  }
+
+  onInputChange(newColor: Color, previsColor: string) {
+    this.canvas.changeColor(previsColor, '#' + newColor.hex);
   }
 }

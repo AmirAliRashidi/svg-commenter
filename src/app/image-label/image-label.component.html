@@ -1,30 +1,89 @@
 <div class="main-container">
-  <div class="first-section">
-    <mat-card class="card-container">
-      <mat-card-header class="card-header">
-        <mat-card-title>Size</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <mat-form-field>
-          <mat-label>Width</mat-label>
-          <input matInput type="text" [(ngModel)]="canvasWidth" (ngOnChanges)="changeSize()">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Height</mat-label>
-          <input matInput type="text" [(ngModel)]="canvasHeight" (ngOnChanges)="changeSize()">
-        </mat-form-field>
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="card-container">
-      <mat-card-header class="card-header">
-        <mat-card-title>Upload Image</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <button mat-raised-button color="primary">Choose File</button>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <div class="main-section">
-    <canvas class="image-label" [width]="canvasWidth" [height]="canvasHeight" id="canvas" #imageLabel></canvas>
-  </div>
+    <div class="first-section">
+        <mat-card class="card-container">
+            <mat-card-header class="card-header">
+                <mat-card-title>Size</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Width</mat-label>
+                    <input matInput type="text" [(ngModel)]="canvas.size.width" (keyup)="changeSize()">
+                </mat-form-field>
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Height</mat-label>
+                    <input matInput type="text" [(ngModel)]="canvas.size.height" (keyup)="changeSize()">
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="card-container">
+            <mat-card-header class="card-header">
+                <mat-card-title>Add Label</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Label Text</mat-label>
+                    <input matInput type="text" [(ngModel)]="canvas.textString">
+                    <mat-icon matSuffix (click)="addText()" color="primary">add</mat-icon>
+                </mat-form-field>
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Label Color</mat-label>
+                    <input matInput [ngxMatColorPicker]="colorpicker" [(ngModel)]="canvas.labelColor">
+                    <ngx-mat-color-toggle matSuffix [for]="colorpicker"></ngx-mat-color-toggle>
+                    <ngx-mat-color-picker #colorpicker color="primary"></ngx-mat-color-picker>
+                </mat-form-field>
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Label BackGround Color</mat-label>
+                    <input matInput [ngxMatColorPicker]="backGroundColorpicker"
+                        [(ngModel)]="canvas.labelBackgroundColor">
+                    <ngx-mat-color-toggle matSuffix [for]="backGroundColorpicker"></ngx-mat-color-toggle>
+                    <ngx-mat-color-picker #backGroundColorpicker color="primary"></ngx-mat-color-picker>
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="card-container">
+            <mat-card-header class="card-header">
+                <mat-card-title>Setting</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="setting-container">
+                <button mat-raised-button color="warn" style="margin-top: 10px;" (click)="clearingPage()">
+                    <mat-icon>error</mat-icon>
+                    Clear Page
+                </button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="main-section">
+        <app-svg-editor #canvas></app-svg-editor>
+        <mat-card class="card-container" *ngIf="canvas && canvas.colorList && canvas.colorList.length"
+            [style.width]="canvas.size.width + 'px'" style="margin-top: 40px;">
+            <mat-card-header class="card-header">
+                <mat-card-title>BackGround Setting</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="bg-color-container">
+                <mat-form-field *ngFor="let c of canvas.colorList" class="color-field">
+                    <input matInput [ngxMatColorPicker]="Colorpicker" [(ngModel)]="c.color" (ngModelChange)="onInputChange($event, c.value)">
+                    <ngx-mat-color-toggle matSuffix [for]="Colorpicker">
+                        <div ngxMatColorpickerToggleIcon class="bg-colors" [style.background-color]="c.value"></div>
+                    </ngx-mat-color-toggle>
+                    <ngx-mat-color-picker #Colorpicker color="primary"></ngx-mat-color-picker>
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>
+
+
+<ng-template #confirmationDialogTemplate>
+    <mat-card class="card-container">
+        <mat-card-header class="card-header">
+            <mat-card-title>Confirmation</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p>Are you sure you want to clear the page?</p>
+            <div class="button-confirmation">
+                <button mat-button color="primary" [matDialogClose]="true">Yes</button>
+                <button mat-button color="warn" [matDialogClose]="false">No</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</ng-template>
