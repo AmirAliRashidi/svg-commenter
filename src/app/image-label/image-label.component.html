@@ -23,7 +23,7 @@
                 <mat-form-field style="width: 100%;">
                     <mat-label>Label Text</mat-label>
                     <input matInput type="text" [(ngModel)]="canvas.textString">
-                    <mat-icon matSuffix (click)="addText()" color="primary">add</mat-icon>
+                    <mat-icon matSuffix (click)="addText()" color="primary" style="cursor: pointer;">add</mat-icon>
                 </mat-form-field>
                 <mat-form-field style="width: 100%;">
                     <mat-label>Label Color</mat-label>
@@ -45,7 +45,7 @@
                 <mat-card-title>Setting</mat-card-title>
             </mat-card-header>
             <mat-card-content class="setting-container">
-                <button mat-raised-button color="warn" style="margin-top: 10px;" (click)="clearingPage()">
+                <button mat-stroked-button color="warn" style="margin-top: 10px;" (click)="clearingPage()">
                     <mat-icon>error</mat-icon>
                     Clear Page
                 </button>

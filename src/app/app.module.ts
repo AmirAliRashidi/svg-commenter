@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatCardModule } from '@angular/material/card';
@@ -19,10 +20,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ImageLabelComponent } from './image-label/image-label.component';
 import { SvgEditorComponent } from './svg-editor/svg-editor.component';
-import { HttpClientModule } from '@angular/common/http';
+import { DisableRightClickDirective } from './disable-right-click.directive';
 
 @NgModule({
-  declarations: [AppComponent, ImageLabelComponent, SvgEditorComponent],
+  declarations: [
+    AppComponent,
+    ImageLabelComponent,
+    SvgEditorComponent,
+    DisableRightClickDirective,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -37,9 +43,7 @@ import { HttpClientModule } from '@angular/common/http';
     NgxMatColorPickerModule,
     HttpClientModule,
   ],
-  providers: [
-    { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS },
-  ],
+  providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

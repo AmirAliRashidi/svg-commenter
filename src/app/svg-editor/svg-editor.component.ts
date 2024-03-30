@@ -154,6 +154,12 @@ export class SvgEditorComponent implements AfterViewInit {
       // text.on('mousedblclick', (options) => {
       //   console.log('double');
       // });
+      // this.canvas.on('mouse:down', (options) => {
+      //   console.log('default mouse click')
+      //   if (options.e.button === 3) {
+      //     options.e.preventDefault();
+      //   }
+      // });      
       // text.on('mousedown', (options) => {
       //   console.log(options)
       //   if (options.button === 3) {
