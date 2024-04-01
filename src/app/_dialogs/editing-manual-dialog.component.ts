@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { IManual } from '../_interfaces/manual-interface';
+import { IDialogData } from '../_interfaces/dialog-data-interface';
 
 @Component({
   selector: 'app-editing-manual-dialog',
@@ -56,10 +57,7 @@ export class EditingManualDialogComponent {
     public data: { tableData: MatTableDataSource<IManual> }
   ) {}
   displayedColumns: string[] = ['id', 'color', 'bg-color'];
-  dialogContent: {
-    title: string;
-    description: string;
-  } = {
+  dialogContent: IDialogData = {
     title: 'Editing Manual',
     description: `After adding labels, you can edit or delete them by right-clicking.
     Additionally, there is an action mode: double-clicking on labels
