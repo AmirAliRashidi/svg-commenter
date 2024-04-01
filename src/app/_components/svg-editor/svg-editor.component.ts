@@ -185,6 +185,7 @@ export class SvgEditorComponent implements AfterViewInit {
   }
 
   clear() {
+    this.labelList = [];
     this._canvas.clear();
     this.createBackGround('assets/bg.svg');
     this.loadSvgAsJson();
