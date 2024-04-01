@@ -19,19 +19,28 @@ import { IDialogData } from '../_interfaces/dialog-data-interface';
           [ngxMatColorPicker]="colorpicker"
           [(ngModel)]="data.elementForm.color"
         />
-        <ngx-mat-color-toggle
-          matSuffix
-          [for]="colorpicker"
-        ></ngx-mat-color-toggle>
-        <ngx-mat-color-picker
-          #colorpicker
-          color="primary"
-        ></ngx-mat-color-picker>
+        <ngx-mat-color-toggle matSuffix [for]="colorpicker">
+        </ngx-mat-color-toggle>
+        <ngx-mat-color-picker #colorpicker color="primary">
+        </ngx-mat-color-picker>
       </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
-      <button mat-button color="warn" [matDialogClose]="false">Cancel</button>
-      <button mat-button color="primary" [matDialogClose]="true">
+      <button mat-raised-button color="warn" [matDialogClose]="false">
+        <mat-icon>cancel</mat-icon>
+        Cancel
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        [matDialogClose]="true"
+        [disabled]="
+          !data.elementForm.color ||
+          !data.elementForm.id ||
+          data.elementForm.id === ''
+        "
+      >
+        <mat-icon>check_circle</mat-icon>
         Enble Action
       </button>
     </mat-dialog-actions>

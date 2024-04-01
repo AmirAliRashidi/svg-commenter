@@ -10,8 +10,14 @@ import { IDialogData } from '../_interfaces/dialog-data-interface';
       <p>{{ dialogContent.description }}</p>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
-      <button mat-button color="primary" [matDialogClose]="false">No</button>
-      <button mat-button color="warn" [matDialogClose]="true">Yes</button>
+      <button mat-raised-button color="primary" [matDialogClose]="false">
+        <mat-icon>cancel</mat-icon>
+        No
+      </button>
+      <button mat-raised-button color="warn" [matDialogClose]="true">
+        <mat-icon>check_circle</mat-icon>
+        Yes
+      </button>
     </mat-dialog-actions>
   `,
 })

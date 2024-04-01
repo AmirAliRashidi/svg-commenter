@@ -37,6 +37,7 @@ import { IDialogData } from '../_interfaces/dialog-data-interface';
         [matDialogClose]="false"
         color="primary"
       >
+      <mat-icon>check_circle</mat-icon>
         OK
       </button>
     </mat-dialog-actions>
