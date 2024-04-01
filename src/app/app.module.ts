@@ -10,6 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTableModule } from '@angular/material/table';
 import {
   MAT_COLOR_FORMATS,
   NgxMatColorPickerModule,
@@ -18,9 +20,13 @@ import {
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ImageLabelComponent } from './image-label/image-label.component';
-import { SvgEditorComponent } from './svg-editor/svg-editor.component';
-import { DisableRightClickDirective } from './disable-right-click.directive';
+import { ImageLabelComponent } from './_components/image-label/image-label.component';
+import { SvgEditorComponent } from './_components/svg-editor/svg-editor.component';
+import { EditingManualDialogComponent } from './_dialogs/editing-manual-dialog.component';
+import { ConfirmationDialogComponent } from './_dialogs/confirmation-dialog.component';
+import { EditElementDialogComponent } from './_dialogs/edit-element-dialog.component';
+import { EditLabelDialogComponent } from './_dialogs/edit-label-dialog.component';
+import { DisableRightClickDirective } from './_directives/disable-right-click.directive';
 
 @NgModule({
   declarations: [
@@ -28,20 +34,28 @@ import { DisableRightClickDirective } from './disable-right-click.directive';
     ImageLabelComponent,
     SvgEditorComponent,
     DisableRightClickDirective,
+    // dialogs
+    EditingManualDialogComponent,
+    ConfirmationDialogComponent,
+    EditElementDialogComponent,
+    EditLabelDialogComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     FormsModule,
+    // angular materials
     MatCardModule,
     MatInputModule,
     MatButtonModule,
     MatSlideToggleModule,
     MatIconModule,
     MatDialogModule,
+    MatTooltipModule,
+    MatTableModule,
     NgxMatColorPickerModule,
-    HttpClientModule,
   ],
   providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }],
   bootstrap: [AppComponent],
