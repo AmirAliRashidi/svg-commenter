@@ -44,10 +44,6 @@ export class ImageLabelComponent implements OnInit {
       });
   }
 
-  changeSize() {
-    this.canvas.changeSize();
-  }
-
   addText() {
     this.canvas.addTextLabel(this.textLabel);
     this.textLabel = {
