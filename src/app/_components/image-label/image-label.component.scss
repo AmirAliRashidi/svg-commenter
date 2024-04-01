@@ -1,0 +1,40 @@
+.main-container {
+  width: calc(100% - 4rem);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 2rem;
+
+  .left-section {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+  }
+
+  .main-section {
+    display: flex;
+    flex-direction: column;
+    width: 66%;
+
+    .help-section {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+    }
+  }
+
+  .card-container {
+    margin-bottom: 1rem;
+
+    .card-header {
+      background-color: #f7f7f7;
+      margin-bottom: .5rem;
+      padding-bottom: .5rem;
+    }
+
+    .setting-container {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
