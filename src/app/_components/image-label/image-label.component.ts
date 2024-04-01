@@ -6,13 +6,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Color } from '@angular-material-components/color-picker';
 
 import { ITextLabel } from 'src/app/_interfaces/text-label-interface';
-import { IElementData } from 'src/app/_interfaces/element-label.interface';
 import { IManual } from '../../_interfaces/manual-interface';
 import { IActionLabel } from '../../_interfaces/action-label-interface';
 import { EditingManualDialogComponent } from '../../_dialogs/editing-manual-dialog.component';
 import { ConfirmationDialogComponent } from '../../_dialogs/confirmation-dialog.component';
-import { EditElementDialogComponent } from '../../_dialogs/edit-element-dialog.component';
 import { EditLabelDialogComponent } from '../../_dialogs/edit-label-dialog.component';
+import { ActionModeDialogComponent } from 'src/app/_dialogs/action-mode-dialog.component';
+import { LabelChartDialogComponent } from 'src/app/_dialogs/label-chart-dialog.component';
 
 @Component({
   selector: 'app-image-label',
@@ -30,10 +30,7 @@ export class ImageLabelComponent implements OnInit {
     color: new Color(255, 255, 255),
     backgroundColor: new Color(63, 81, 181),
   };
-  elementData: IElementData = {
-    id: '',
-    color: new Color(255, 255, 255),
-  };
+
   constructor(private _dialog: MatDialog, private _httpClient: HttpClient) {}
 
   ngOnInit(): void {
@@ -75,18 +72,14 @@ export class ImageLabelComponent implements OnInit {
     });
   }
 
-  editElementDialog() {
-    const dialogRef = this._dialog.open(EditElementDialogComponent, {
-      width: '600px',
-      data: { elementForm: this.elementData },
+  actionModeDialog(label: IActionLabel) {
+    const dialogRef = this._dialog.open(ActionModeDialogComponent, {
+      width: '300px',
+      data: { label },
     });
-    dialogRef.afterClosed().subscribe((result: boolean) => {
+    dialogRef.afterClosed().subscribe((result: false | IActionLabel) => {
       if (result) {
-        this.canvas.editElements(this.elementData);
-        this.elementData = {
-          id: '',
-          color: new Color(255, 255, 255),
-        };
+        this.canvas.saveAction(result)
       }
     });
   }
@@ -111,6 +104,12 @@ export class ImageLabelComponent implements OnInit {
       }
       this.labelActionMode = 'choose';
       (this.selectedLabel as any) = null;
+    });
+  }
+
+  chartDialog(){
+    this._dialog.open(LabelChartDialogComponent, {
+      width: '500px',
     });
   }
 }

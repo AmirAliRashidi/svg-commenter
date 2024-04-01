@@ -5,4 +5,7 @@ export interface IActionLabel {
   id: string;
   color?: Color;
   backgroundColor?: Color;
+  mode?: 'color' | 'chart';
+  elementID?: string,
+  elementColor?: Color,
 }

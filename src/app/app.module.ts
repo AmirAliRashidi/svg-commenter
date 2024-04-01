@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
 import {
   MAT_COLOR_FORMATS,
   NgxMatColorPickerModule,
@@ -23,25 +24,24 @@ import { ImageLabelComponent } from './_components/image-label/image-label.compo
 import { SvgEditorComponent } from './_components/svg-editor/svg-editor.component';
 import { EditingManualDialogComponent } from './_dialogs/editing-manual-dialog.component';
 import { ConfirmationDialogComponent } from './_dialogs/confirmation-dialog.component';
-import { EditElementDialogComponent } from './_dialogs/edit-element-dialog.component';
 import { EditLabelDialogComponent } from './_dialogs/edit-label-dialog.component';
 import { DisableRightClickDirective } from './_directives/disable-right-click.directive';
-import { LabelChartComponent } from './_components/label-chart/label-chart.component';
+import { ActionModeDialogComponent } from './_dialogs/action-mode-dialog.component';
+import { LabelChartDialogComponent } from './_dialogs/label-chart-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ImageLabelComponent,
     SvgEditorComponent,
-    LabelChartComponent,
-    LabelChartComponent,
+    LabelChartDialogComponent,
     // directives
     DisableRightClickDirective,
     // dialogs
     EditingManualDialogComponent,
     ConfirmationDialogComponent,
-    EditElementDialogComponent,
     EditLabelDialogComponent,
+    ActionModeDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +57,7 @@ import { LabelChartComponent } from './_components/label-chart/label-chart.compo
     MatDialogModule,
     MatTooltipModule,
     MatTableModule,
+    MatSelectModule,
     NgxMatColorPickerModule,
   ],
   providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }],

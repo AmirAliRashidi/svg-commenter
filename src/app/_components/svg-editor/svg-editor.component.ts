@@ -6,13 +6,11 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { Color } from '@angular-material-components/color-picker';
 
 import { fabric } from 'fabric';
 
 import { SvgService } from '../../_services/svg-editor.service';
 import { IActionLabel } from '../../_interfaces/action-label-interface';
-import { IElementData } from '../../_interfaces/element-label.interface';
 import { ITextLabel } from 'src/app/_interfaces/text-label-interface';
 
 @Component({
@@ -24,12 +22,14 @@ import { ITextLabel } from 'src/app/_interfaces/text-label-interface';
 export class SvgEditorComponent implements AfterViewInit {
   @ViewChild('svgEditor') svgEditor!: ElementRef;
   @Output() editLabelDialog = new EventEmitter<IActionLabel>();
-  @Output() editElementDialog = new EventEmitter();
+  @Output() actionModeDialog = new EventEmitter<IActionLabel>();
+  @Output() chartDialog = new EventEmitter();
 
   private _canvas!: fabric.Canvas;
   svgJson: any;
   svgString: string = '';
   previewMode: boolean = false;
+  labelList: IActionLabel[] = [];
 
   constructor(private _svgService: SvgService) {
     this.loadSvgAsJson();
@@ -62,19 +62,20 @@ export class SvgEditorComponent implements AfterViewInit {
     });
   }
 
-  editElements(elementData: IElementData) {
+  editElements(elementData: IActionLabel) {
     const traverseSVG = (element: any) => {
       if (
         element &&
         element.hasOwnProperty('$') &&
         element['$'].hasOwnProperty('element-id') &&
-        element['$']['element-id'] === elementData.id
+        element['$']['element-id'] === elementData.elementID &&
+        elementData.elementColor
       ) {
         const style = element['$']['style'];
         if (style) {
           element['$']['style'] = style.replace(
             /fill:[^;]*/,
-            `fill:${'#' + elementData.color.toHex()}`
+            `fill:${'#' + elementData.elementColor.toHex()}`
           );
         }
       }
@@ -118,16 +119,14 @@ export class SvgEditorComponent implements AfterViewInit {
         selectable: !this.previewMode,
       });
       text.on('mousedblclick', () => {
-        if (this.previewMode) {
-          this.editElementDialog.emit({
-            text: labelText,
-            id: labelID,
-          });
+        if (!this.previewMode) {
+          const label = this.labelList.find((item) => item.id === labelID);
+          this.actionModeDialog.emit(label);
         }
       });
       text.on('mousedown', (options) => {
         if (options.button === 3) {
-          if (this.previewMode) {
+          if (!this.previewMode) {
             options.e.preventDefault();
             setTimeout(() => {
               this.editLabelDialog.emit({
@@ -136,9 +135,34 @@ export class SvgEditorComponent implements AfterViewInit {
               });
             }, 100);
           }
+        } else if (options.button === 1) {
+          if (this.previewMode) {
+            options.e.preventDefault();
+            const label = this.labelList.find((item) => item.id === labelID);
+            setTimeout(() => {
+              if (label?.mode === 'color') {
+                this.editElements(label);
+              } else if (label?.mode === 'chart') {
+                this.chartDialog.emit();
+              }
+            }, 100);
+          }
         }
       });
+      this.labelList.push({
+        id: labelID,
+        text: labelText,
+        color: textLabel.color,
+        backgroundColor: textLabel.backgroundColor,
+      });
       this._canvas.add(text);
+    }
+  }
+
+  saveAction(label: IActionLabel) {
+    const index = this.labelList.findIndex((item) => item.id === label.id);
+    if (index) {
+      this.labelList[index] = label;
     }
   }
 
@@ -183,16 +207,15 @@ export class SvgEditorComponent implements AfterViewInit {
     imgElement.src = path;
   }
 
-  changeFigureColor(color: string) {
-    this._canvas.getActiveObject()?.set('fill', color);
-    this._canvas.renderAll();
-  }
-
   randomId() {
     return Math.floor(Math.random() * 999999) + 1;
   }
 
   removeLabel(labelID: string) {
+    const index = this.labelList.findIndex((item) => item.id === labelID);
+    if (index !== -1) {
+      this.labelList.splice(index, 1);
+    }
     const objects: any = this._canvas.getObjects();
     objects.forEach((label: any) => {
       if (label.name === labelID) {

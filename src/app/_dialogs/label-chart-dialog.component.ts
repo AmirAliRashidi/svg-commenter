@@ -6,12 +6,32 @@ import { XYCursor } from '@amcharts/amcharts5/.internal/charts/xy/XYCursor';
 import { DateAxis } from '@amcharts/amcharts5/.internal/charts/xy/axes/DateAxis';
 import { LineSeries, ValueAxis } from '@amcharts/amcharts5/xy';
 import * as am5xy from '@amcharts/amcharts5/xy';
+import { IDialogData } from '../_interfaces/dialog-data-interface';
 
 @Component({
   selector: 'app-label-chart',
-  template: ` <div id="chartdiv" style="width: 100%; height: 500px;"></div> `,
+  template: `
+    <h2 mat-dialog-title>{{ dialogContent.title }}</h2>
+    <mat-dialog-content>
+      <div id="chartdiv" style="width: 100%; height: 500px;"></div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button
+        mat-raised-button
+        color="primary"
+        [matDialogClose]="false"
+        color="primary"
+      >
+        <mat-icon>check_circle</mat-icon>
+        OK
+      </button>
+    </mat-dialog-actions>
+  `,
 })
-export class LabelChartComponent implements OnInit {
+export class LabelChartDialogComponent implements OnInit {
+  dialogContent: IDialogData = {
+    title: 'Label Chart',
+  };
   ngOnInit(): void {
     let root = Root.new('chartdiv');
     let chart = root.container.children.push(
