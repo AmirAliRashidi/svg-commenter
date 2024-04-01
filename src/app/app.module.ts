@@ -18,7 +18,6 @@ import {
   NGX_MAT_COLOR_FORMATS,
 } from '@angular-material-components/color-picker';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ImageLabelComponent } from './_components/image-label/image-label.component';
 import { SvgEditorComponent } from './_components/svg-editor/svg-editor.component';
@@ -42,7 +41,6 @@ import { DisableRightClickDirective } from './_directives/disable-right-click.di
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
