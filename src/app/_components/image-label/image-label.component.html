@@ -22,19 +22,19 @@
             <mat-card-content>
                 <mat-form-field style="width: 100%;">
                     <mat-label>Label Text</mat-label>
-                    <input matInput type="text" [(ngModel)]="canvas.textString">
+                    <input matInput type="text" [(ngModel)]="textLabel.text">
                     <mat-icon matSuffix (click)="addText()" color="primary" style="cursor: pointer;">add</mat-icon>
                 </mat-form-field>
                 <mat-form-field style="width: 100%;">
                     <mat-label>Label Color</mat-label>
-                    <input matInput [ngxMatColorPicker]="colorpicker" [(ngModel)]="canvas.labelColor">
+                    <input matInput [ngxMatColorPicker]="colorpicker" [(ngModel)]="textLabel.color">
                     <ngx-mat-color-toggle matSuffix [for]="colorpicker"></ngx-mat-color-toggle>
                     <ngx-mat-color-picker #colorpicker color="primary"></ngx-mat-color-picker>
                 </mat-form-field>
                 <mat-form-field style="width: 100%;">
                     <mat-label>Label BackGround Color</mat-label>
                     <input matInput [ngxMatColorPicker]="backGroundColorpicker"
-                        [(ngModel)]="canvas.labelBackgroundColor">
+                        [(ngModel)]="textLabel.backgroundColor">
                     <ngx-mat-color-toggle matSuffix [for]="backGroundColorpicker"></ngx-mat-color-toggle>
                     <ngx-mat-color-picker #backGroundColorpicker color="primary"></ngx-mat-color-picker>
                 </mat-form-field>

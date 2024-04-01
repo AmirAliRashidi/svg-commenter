@@ -3,7 +3,10 @@ import { SvgEditorComponent } from '../svg-editor/svg-editor.component';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
+import { Color } from '@angular-material-components/color-picker';
 
+import { ITextLabel } from 'src/app/_interfaces/text-label-interface';
+import { IElementData } from 'src/app/_interfaces/element-label.interface';
 import { IManual } from '../../_interfaces/manual-interface';
 import { IActionLabel } from '../../_interfaces/action-label-interface';
 import { EditingManualDialogComponent } from '../../_dialogs/editing-manual-dialog.component';
@@ -22,7 +25,15 @@ export class ImageLabelComponent implements OnInit {
   labelActionMode: 'choose' | 'delete' | 'edit' = 'choose';
   selectedLabel!: IActionLabel;
   labelManualData: MatTableDataSource<IManual> | undefined;
-
+  textLabel: ITextLabel = {
+    text: '',
+    color: new Color(255, 255, 255),
+    backgroundColor: new Color(63, 81, 181),
+  };
+  elementData: IElementData = {
+    id: '',
+    color: new Color(255, 255, 255),
+  };
   constructor(private _dialog: MatDialog, private _httpClient: HttpClient) {}
 
   ngOnInit(): void {
@@ -38,7 +49,12 @@ export class ImageLabelComponent implements OnInit {
   }
 
   addText() {
-    this.canvas.addTextLabel();
+    this.canvas.addTextLabel(this.textLabel);
+    this.textLabel = {
+      text: '',
+      color: new Color(255, 255, 255),
+      backgroundColor: new Color(63, 81, 181),
+    };
   }
 
   changeMode() {
@@ -66,11 +82,15 @@ export class ImageLabelComponent implements OnInit {
   editElementDialog() {
     const dialogRef = this._dialog.open(EditElementDialogComponent, {
       width: '600px',
-      data: { elementForm: this.canvas.elementData },
+      data: { elementForm: this.elementData },
     });
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
-        this.canvas.editElements();
+        this.canvas.editElements(this.elementData);
+        this.elementData = {
+          id: '',
+          color: new Color(255, 255, 255),
+        };
       }
     });
   }
