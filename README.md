@@ -2,7 +2,7 @@
 
 ## SVG Commenter is an Angular project that enables users to add customizable text labels to SVG images.
 
-## Technologies Used
+### Technologies Used
 - Angular Material
 - ngx-material-color-picker
 - fabric.js
