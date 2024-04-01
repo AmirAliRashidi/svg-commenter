@@ -26,12 +26,16 @@ import { ConfirmationDialogComponent } from './_dialogs/confirmation-dialog.comp
 import { EditElementDialogComponent } from './_dialogs/edit-element-dialog.component';
 import { EditLabelDialogComponent } from './_dialogs/edit-label-dialog.component';
 import { DisableRightClickDirective } from './_directives/disable-right-click.directive';
+import { LabelChartComponent } from './_components/label-chart/label-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ImageLabelComponent,
     SvgEditorComponent,
+    LabelChartComponent,
+    LabelChartComponent,
+    // directives
     DisableRightClickDirective,
     // dialogs
     EditingManualDialogComponent,

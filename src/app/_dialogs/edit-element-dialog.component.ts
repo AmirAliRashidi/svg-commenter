@@ -24,6 +24,7 @@ import { IDialogData } from '../_interfaces/dialog-data-interface';
         <ngx-mat-color-picker #colorpicker color="primary">
         </ngx-mat-color-picker>
       </mat-form-field>
+      <app-label-chart></app-label-chart>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-raised-button color="warn" [matDialogClose]="false">
