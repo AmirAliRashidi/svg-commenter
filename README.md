@@ -1,4 +1,4 @@
-# SVG Commenter
+ # SVG Commenter
 
 ## SVG Commenter is an Angular project that enables users to add customizable text labels to SVG images.
 
